@@ -4,7 +4,6 @@
 
 #include "vad.h"
 #include "pav_analysis.h"
-
 const float FRAME_TIME = 10.0F; /* in ms. */
 
 /* 
@@ -44,15 +43,14 @@ Features compute_features(const float *x, int N) {
    */
   Features feat;
   //feat.zcr = feat.p = feat.am = (float) rand()/RAND_MAX;
-  feat.zcr = compute_zcr(x, N, 16000);
-  feat.am = compute_am(x, N);
-  feat.p = compute_power(x, N);
-
+  feat.zcr = compute_zcr(x,N,16000);
+  feat.am=compute_am(x,N);
+  feat.p=compute_power(x,N);
   return feat;
 }
 
 /* 
- * TODO: Init the values of vad_data
+ * TODO: Init the values of vad_data  
  */
 
 VAD_DATA * vad_open(float rate) {
@@ -66,6 +64,7 @@ VAD_DATA * vad_open(float rate) {
 VAD_STATE vad_close(VAD_DATA *vad_data) {
   /* 
    * TODO: decide what to do with the last undecided frames
+   2 estados, data nos informa del estado, x:señal
    */
   VAD_STATE state = vad_data->state;
 
@@ -87,20 +86,23 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
   /* 
    * TODO: You can change this, using your own features,
    * program finite state automaton, define conditions, etc.
+
    * Tiene 2 argumentos  vad_data  nos informa del estado y x señal
+
    */
 
   Features f = compute_features(x, vad_data->frame_length);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
 
   switch (vad_data->state) {
-  case ST_INIT:
+  case ST_INIT: 
     vad_data->state = ST_SILENCE;
-    vad_data->p1 = f.p + 10; //valor de ruido por encima del valor de ruido
+    vad_data->p1 = f.p + 10;
     break;
 
   case ST_SILENCE:
-    if (f.p > vad_data->p1) 
+    if (f.p > vad_data->p1)
+
       vad_data->state = ST_VOICE;
     break;
 
