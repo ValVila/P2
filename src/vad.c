@@ -86,7 +86,9 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
   /* 
    * TODO: You can change this, using your own features,
    * program finite state automaton, define conditions, etc.
-   2 estados, data nos informa del estado, x:señal
+
+   * Tiene 2 argumentos  vad_data  nos informa del estado y x señal
+
    */
 
   Features f = compute_features(x, vad_data->frame_length);
@@ -95,11 +97,13 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
   switch (vad_data->state) {
   case ST_INIT: 
     vad_data->state = ST_SILENCE;
+
     vad_data->p1 = f.p + 10;
     break;
 
   case ST_SILENCE:
     if (f.p > vad_data->p1)
+
       vad_data->state = ST_VOICE;
     break;
 
