@@ -1,4 +1,4 @@
-  #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <sndfile.h>
@@ -85,12 +85,18 @@ int main(int argc, char *argv[]) {
 
     state = vad(vad_data, buffer);
     if (verbose & DEBUG_VAD) vad_show_state(vad_data, stdout);
-
+    
     /* TODO: print only SILENCE and VOICE labels */
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
     if (state != last_state) {
-      if (t != last_t)
+      if (t != last_t){
         fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
+        printf(state2str(state));
+        printf("%f",last_t * frame_duration);
+        printf("%f",t * frame_duration);
+        printf("\n");
+
+      }
       last_state = state;
       last_t = t;
     }

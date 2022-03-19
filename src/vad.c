@@ -98,21 +98,34 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
   switch (vad_data->state) {
   case ST_INIT: 
     vad_data->state = ST_SILENCE;
-    vad_data->p1 = f.p + vad_data->alpha1+ 5;
+    vad_data->p1 = f.p + vad_data->alpha1 + 5; 
+    vad_data->p2 = vad_data->p1 + 5; 
+    //printf("INIT\n");
     break;
 
   case ST_SILENCE:
-    if (f.p > vad_data->p1)
-
-      vad_data->state = ST_VOICE;
+    if (f.p > vad_data->p1){
+      vad_data->state = ST_UNDEF;
+      //printf("SILENCE\n");
+    }
     break;
 
   case ST_VOICE:
-    if (f.p < vad_data->p1)
-      vad_data->state = ST_SILENCE;
+    if (f.p < vad_data->p2){
+      vad_data->state = ST_UNDEF;
+      //printf("VOICE\n");
+    }
     break;
 
   case ST_UNDEF:
+    if (f.p > vad_data->p2){
+        vad_data->state = ST_VOICE;
+        //printf("UNDEF\n");
+      }
+    if (f.p < vad_data->p1){
+        vad_data->state = ST_SILENCE;
+        //printf("UNDEF\n");
+      }    
     break;
     
   }
