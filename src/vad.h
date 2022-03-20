@@ -19,6 +19,7 @@ typedef struct {
   float p1; //valor de ruido suelo
   float p2;
   float alpha1;
+  float alpha2;
 } VAD_DATA;
 
 /* Call this function before using VAD: 

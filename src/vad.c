@@ -94,12 +94,12 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
 
   Features f = compute_features(x, vad_data->frame_length);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
-
+  vad_data->alpha2 = 7.10;
   switch (vad_data->state) {
   case ST_INIT: 
     vad_data->state = ST_SILENCE;
-    vad_data->p1 = f.p + vad_data->alpha1 + 5; 
-    vad_data->p2 = vad_data->p1 + 5; 
+    vad_data->p1 = f.p + vad_data->alpha1; 
+    vad_data->p2 = vad_data->p1 + vad_data->alpha2  ; 
     //printf("INIT\n");
     break;
 
