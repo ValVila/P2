@@ -106,7 +106,7 @@ Ejercicios
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
 
-<img src="img/graf2.png" width="640" align="center">
+<img src="img/graf2.PNG" width="640" align="center">
 
 ***Grafica de la señal temporal, cotorno de potencia y ZCR***
 
