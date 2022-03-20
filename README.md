@@ -147,7 +147,7 @@ Ejercicios
   
   Las tasas con mejores resultados han sido obtenidas a partir de alpha1=1.83 y alpha 2=7.10 :
   
-  <img src="img/percentage.PNG" width="640" align="center">
+  <img src="img/percentage.png" width="640" align="center">
 
   
   
