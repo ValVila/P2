@@ -106,14 +106,27 @@ Ejercicios
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
 
+<img src="img/graf2.png" width="640" align="center">
+
+***Grafica de la señal temporal, cotorno de potencia y ZCR***
+
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
+	  
+	  Viendo que el silencio inicial tiene un nivel de potencia aproximado de unos -50 a -40 dB y el nivel de potencia para la voz es de unos -20 a -10 dB
+	  asi que para estar seguros de que se trata de voz, un aumento de aproximadamente de unos 20 a 40 dB seria razonable
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
+	  
+	  De media el tiempo que tardariamos en pronunciar una palabra seria de unos 0.5 segundos, pero segun que palabras o velocidad en la que se pronuncia se puede 		 llegar a varios segundos por lo que podemos decir que se trata de voz si dura mas de 0.5 segundos y se trata de silencio podriamos decir tambien 0.5 pero
+	  como en este caso es mas ambiguo podemos alargar a 1-2 segundos.
 
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
+	  
+	  La taza de cruzes por cero aumenta en tramos de voz. Observamos que la potencia en sonidos sordos es parecida a la potencia de ruido pero la zcr aumenta en 
+	  sonidos sonoros y sordos por lo que nos ayudara a distinguir si se trata de un tramo de voz o de silencio
 
 
 ### Desarrollo del detector de actividad vocal
