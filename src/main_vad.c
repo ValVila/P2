@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
   float *buffer, *buffer_zeros;
   int frame_size;         /* in samples */
   float frame_duration;   /* in seconds */
-  unsigned int t, last_t; /* in frames */
-  float t_ref = 0;
+  unsigned int t, last_t, t_ref=0; /* in frames */
+  //float t_ref = 0;
   int nu = 0, ns = 0, nv=0; //number of U, S and V
 
   char	*input_wav, *output_vad, *output_wav;
@@ -108,11 +108,12 @@ int main(int argc, char *argv[]) {
             nu = 0;
             /*
             printf("\nSILENCE ");
-            printf("%f ",t_ref);
-            printf("%f\n",((ns* frame_duration* last_t) + t_ref));
+            printf("%f ",t_ref* frame_duration);
+            printf("%f\n",last_t* frame_duration);
             */
-            fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref, ((ns* frame_duration* last_t) + t_ref), state2str(prev_state));
-            t_ref = t_ref + (ns * frame_duration * last_t);
+            fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref* frame_duration, last_t* frame_duration, state2str(prev_state));
+            t_ref=last_t;
+            //t_ref = t_ref + (ns * frame_duration * last_t);
             ns = 0;          
           }else if(state==ST_SILENCE && prev_state==ST_SILENCE){
             ns += nu;
@@ -123,11 +124,12 @@ int main(int argc, char *argv[]) {
             nu = 0;            
             /*
             printf("\nVOICE ");
-            printf("%f ",t_ref);
-            printf("%f\n",((nv* frame_duration* last_t) + t_ref));
+            printf("%f ",t_ref* frame_duration);
+            printf("%f\n",last_t* frame_duration);
             */
-            fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref, ((nv* frame_duration* last_t) + t_ref), state2str(prev_state)); 
-            t_ref = t_ref + (nv * frame_duration * last_t);
+            fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref*frame_duration, last_t* frame_duration, state2str(prev_state)); 
+            t_ref=last_t;
+            //t_ref = t_ref + (nv * frame_duration * last_t);
             nv = 0;
           }
         }
@@ -154,14 +156,14 @@ int main(int argc, char *argv[]) {
   //printf("%f\npito",t_ref);
   //printf("nu: %d nv: %d ns: %d\n", nu, nv, ns);
   if(ns != 0 ){
-    fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(ns* frame_duration* last_t), state2str(state)); 
+    //fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(ns* frame_duration* last_t), state2str(state)); 
     /*
     printf("\nSILENCE ");
     printf("%f ",t_ref);
     printf("%f\n",((ns* frame_duration* last_t) + t_ref));
     */
   }else if(nv != 0){
-    fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(nv* frame_duration* last_t), state2str(state)); 
+    //fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(nv* frame_duration* last_t), state2str(state)); 
     /*
     printf("\nVOICE ");
     printf("%f ",t_ref);
@@ -173,9 +175,9 @@ int main(int argc, char *argv[]) {
   /* TODO: what do you want to print, for last frames? */
   /*if (t != last_t){
     printf("%f\n",t_ref);
-    fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref + (last_t * frame_duration), t_ref + (t * frame_duration + n_read / (float) sf_info.samplerate), state2str(state));
     printf("%.5f\t%.5f\t%s\n", t_ref + (last_t * frame_duration), t_ref + (t * frame_duration + n_read / (float) sf_info.samplerate), state2str(state));
   }*/
+    fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref * frame_duration, (t * frame_duration + n_read / (float) sf_info.samplerate), "S");
   /* clean up: free memory, close open files */
   free(buffer);
   free(buffer_zeros);
