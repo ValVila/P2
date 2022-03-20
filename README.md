@@ -140,9 +140,17 @@ Ejercicios
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
 
+
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
+  
+  Las tasas con mejores resultados han sido obtenidas a partir de alpha1=1.83 y alpha 2=7.10 :
+  
+  <img src="img/percentage.PNG" width="640" align="center">
+
+  
+  
 
 
 ### Trabajos de ampliación
