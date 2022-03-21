@@ -157,8 +157,7 @@ Ejercicios
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
   
-   ### COMENTA ELS PARAMETRES QUE HAS PILLAT PER OBTENIR EL RESULTAT FINAL, HE COMENTAT LO DE MIN TIME AVANS PERO POTSER ÉS MILLOR POSAR-HO AQUI I SI VOLS COMPLETAR LO DEL APARTAT ANTERIOR PERF, + SI VOLS COMENTAR PER FOTO TIPO AQUESTA MILLORA DE PORCENTATGE HA SIGUT BECAUSE OF THIS O AQUI HE OPTIMITZAT THIS, COM VULGUIS
-   
+ 
   
   Esta primera tasa ha sido obtenida a partir de alpha1=1.83 y alpha 2=7.10 :
 
@@ -204,8 +203,6 @@ Ejercicios
 
 ### Contribuciones adicionales y/o comentarios acerca de la práctica
 
-
- ### THIS IS PRETTY MUCH ALL YOU SI VOLS FICAR 4 COSES D'OPTIMITZACIÓ O EL QUE TU VULGUIS
  
 - Indique a continuación si ha realizado algún tipo de aportación suplementaria (algoritmos de detección o 
   parámetros alternativos, etc.).
