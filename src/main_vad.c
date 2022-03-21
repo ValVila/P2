@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
     if (state != last_state) {
       if (t != last_t){
-        if(last_state==ST_UNDEF){
+        if(last_state==ST_UNDEF&& ((last_t* frame_duration)-(t_ref* frame_duration))>0.19){
           
           if(state==ST_VOICE && prev_state==ST_VOICE){
             nv += nu;
