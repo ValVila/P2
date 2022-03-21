@@ -158,6 +158,7 @@ Ejercicios
   el resumen).
   
    ### COMENTA ELS PARAMETRES QUE HAS PILLAT PER OBTENIR EL RESULTAT FINAL, HE COMENTAT LO DE MIN TIME AVANS PERO POTSER ÉS MILLOR POSAR-HO AQUI I SI VOLS COMPLETAR LO DEL APARTAT ANTERIOR PERF, + SI VOLS COMENTAR PER FOTO TIPO AQUESTA MILLORA DE PORCENTATGE HA SIGUT BECAUSE OF THIS O AQUI HE OPTIMITZAT THIS, COM VULGUIS
+   
   
   Esta primera tasa ha sido obtenida a partir de alpha1=1.83 y alpha 2=7.10 :
 
@@ -170,6 +171,8 @@ Ejercicios
   <img src="img/943.png" width="640" align="center">
   
   <img src="img/948.png" width="640" align="center">  
+  
+  Estas mejoras han sido posibles al optimizar el algoritmo usando alpha1, alpha2, frame_time y min_time como parametros. Finalmente con un alpha1 = 9.5 alpha2 = 6 frame_time = 48 y min_time = 0.19 hemos obtenido un porcentaje total del 94.871%, este ha sido el mejor resultado que hemos podido encontrar con los parametros usados. 
 
 
 ### Trabajos de ampliación
