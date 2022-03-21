@@ -105,11 +105,12 @@ int main(int argc, char *argv[]) {
       last_t = t;
     }
 
-
-    if (sndfile_out != 0) {
-      /* TODO: go back and write zeros in silence segments */
+/*
+  if (sndfile_out != 0 && state == ST_SILENCE) {
+      sf_seek(sndfile_out, frame_size, SEEK_CUR);
+      sf_write_float(sndfile_out, buffer_zeros, frame_size);
     }
-  }
+  }*/
 
   
   
