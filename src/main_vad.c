@@ -24,8 +24,6 @@ int main(int argc, char *argv[]) {
   int frame_size;         /* in samples */
   float frame_duration;   /* in seconds */
   unsigned int t, last_t, t_ref=0; /* in frames */
-  //float t_ref = 0;
-  int nu = 0, ns = 0, nv=0; //number of U, S and V
 
   char	*input_wav, *output_vad, *output_wav;
 
@@ -88,60 +86,20 @@ int main(int argc, char *argv[]) {
     state = vad(vad_data, buffer);
     if (verbose & DEBUG_VAD) vad_show_state(vad_data, stdout);
 
-    if(state == ST_UNDEF) nu++;
-    if(state == ST_VOICE) nv++;
-    if(state == ST_SILENCE) ns++;    
-    //printf(state2str(state));
-    //printf("nu: %d nv: %d ns: %d", nu, nv, ns);
     /* TODO: print only SILENCE and VOICE labels */
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
     if (state != last_state) {
       if (t != last_t){
         if(last_state==ST_UNDEF&& ((last_t* frame_duration)-(t_ref* frame_duration))>0.19){
-          
-          if(state==ST_VOICE && prev_state==ST_VOICE){
-            nv += nu;
-            nu = 0;
-            //printf("VOICE ");
-          }else if(state==ST_VOICE && prev_state==ST_SILENCE){
-            nv += nu;
-            nu = 0;
-            /*
-            printf("\nSILENCE ");
-            printf("%f ",t_ref* frame_duration);
-            printf("%f\n",last_t* frame_duration);
-            */
+          if(state==ST_VOICE && prev_state==ST_SILENCE){
             fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref* frame_duration, last_t* frame_duration, state2str(prev_state));
             t_ref=last_t;
-            //t_ref = t_ref + (ns * frame_duration * last_t);
-            ns = 0;          
-          }else if(state==ST_SILENCE && prev_state==ST_SILENCE){
-            ns += nu;
-            nu = 0;
-            //printf("SILENCE ");
           }else if(state==ST_SILENCE && prev_state==ST_VOICE){
-            ns += nu;
-            nu = 0;            
-            /*
-            printf("\nVOICE ");
-            printf("%f ",t_ref* frame_duration);
-            printf("%f\n",last_t* frame_duration);
-            */
             fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref*frame_duration, last_t* frame_duration, state2str(prev_state)); 
             t_ref=last_t;
-            //t_ref = t_ref + (nv * frame_duration * last_t);
-            nv = 0;
           }
         }
-        
-        /*fprintf(vadfile, "%.5f\t%.5f\t%s\n", last_t * frame_duration, t * frame_duration, state2str(last_state));
-        printf(state2str(state));
-        printf("%f",last_t * frame_duration);
-        printf("%f",t * frame_duration);
-        printf("\n");
-        */
       }
-      
       prev_state = last_state;
       last_state = state;
       last_t = t;
@@ -153,31 +111,11 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  //printf("%f\npito",t_ref);
-  //printf("nu: %d nv: %d ns: %d\n", nu, nv, ns);
-  if(ns != 0 ){
-    //fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(ns* frame_duration* last_t), state2str(state)); 
-    /*
-    printf("\nSILENCE ");
-    printf("%f ",t_ref);
-    printf("%f\n",((ns* frame_duration* last_t) + t_ref));
-    */
-  }else if(nv != 0){
-    //fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref,  t_ref+(nv* frame_duration* last_t), state2str(state)); 
-    /*
-    printf("\nVOICE ");
-    printf("%f ",t_ref);
-    printf("%f\n",((nv* frame_duration* last_t) + t_ref));
-    */
-  }
+  
   
   state = vad_close(vad_data);
   /* TODO: what do you want to print, for last frames? */
-  /*if (t != last_t){
-    printf("%f\n",t_ref);
-    printf("%.5f\t%.5f\t%s\n", t_ref + (last_t * frame_duration), t_ref + (t * frame_duration + n_read / (float) sf_info.samplerate), state2str(state));
-  }*/
-    fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref * frame_duration, (t * frame_duration + n_read / (float) sf_info.samplerate), "S");
+      fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref * frame_duration, (t * frame_duration + n_read / (float) sf_info.samplerate), "S");
   /* clean up: free memory, close open files */
   free(buffer);
   free(buffer_zeros);
