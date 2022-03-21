@@ -181,6 +181,12 @@ Ejercicios
   mejor opción para esto, ya que no es capaz de visualizar varias señales al mismo tiempo).
   
   <img src="img/silence.PNG" width="640" align="center">  
+  
+  Para ver que correctamente se ha desarollado el algoritmo de cancelaión de los segmentos de silencio miramos el plot de potencia y vemos que en efecto los segmentos
+  de silencio estan a potencia 0.
+  
+  <img src="img/silencepot.PNG" width="640" align="center">  
+
 
 
 #### Gestión de las opciones del programa usando `docopt_c`
