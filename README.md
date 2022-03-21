@@ -105,7 +105,6 @@ Ejercicios
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
 
-
 <img src="img/graf2.PNG" width="640" align="center">
 
 ***Grafica de la señal temporal, cotorno de potencia y ZCR***
@@ -137,20 +136,38 @@ Ejercicios
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
 
+  En esta gráfica usamos un frame time de 10 ms 
+  <img src="img/lab1.png" width="640" align="center">
+  
+  En esta gráfica usamos un frame time de 50 ms 
+  <img src="img/lab2.png" width="640" align="center">
+
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
+  
+  Vemos que ha un frame time mas elevado practicamente no hay discrepancias, esto es debido a que con mayor frame time nos permitía un cálculo más simple de la
+  potencia, ya que por ejemplo picos de ruido repentinos no crean tanta discrpencia visto que calculamos la media. Con esto y con la mejora de código hemos obtenido
+  resultados muy cercanos al etiquetado manual. Al contrario con lo propuesto en el primer apartado los mejores resultados los hemos obtenido con un tiempo de voz de 
+  0.19 segundos que nos han permitido obtener estos resultados.
 
 
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
   
-  Las tasas con mejores resultados han sido obtenidas a partir de alpha1=1.83 y alpha 2=7.10 :
+   ### COMENTA ELS PARAMETRES QUE HAS PILLAT PER OBTENIR EL RESULTAT FINAL, HE COMENTAT LO DE MIN TIME AVANS PERO POTSER ÉS MILLOR POSAR-HO AQUI I SI VOLS COMPLETAR LO DEL APARTAT ANTERIOR PERF, + SI VOLS COMENTAR PER FOTO TIPO AQUESTA MILLORA DE PORCENTATGE HA SIGUT BECAUSE OF THIS O AQUI HE OPTIMITZAT THIS, COM VULGUIS
   
-  <img src="img/percentage.png" width="640" align="center">
+  Esta primera tasa ha sido obtenida a partir de alpha1=1.83 y alpha 2=7.10 :
 
+  <img src="img/percentage.png" width="640" align="center">
   
+  Con mejoras y ajustes hemos conseguido estos porcentajes respectivamente hasta obtener un 94.871%
   
+  <img src="img/936.png" width="640" align="center">
+
+  <img src="img/943.png" width="640" align="center">
+  
+  <img src="img/948.png" width="640" align="center">  
 
 
 ### Trabajos de ampliación
@@ -160,20 +177,29 @@ Ejercicios
 - Si ha desarrollado el algoritmo para la cancelación de los segmentos de silencio, inserte una gráfica en
   la que se vea con claridad la señal antes y después de la cancelación (puede que `wavesurfer` no sea la
   mejor opción para esto, ya que no es capaz de visualizar varias señales al mismo tiempo).
+  
+  <img src="img/silence.PNG" width="640" align="center">  
+
 
 #### Gestión de las opciones del programa usando `docopt_c`
 
 - Si ha usado `docopt_c` para realizar la gestión de las opciones y argumentos del programa `vad`, inserte
   una captura de pantalla en la que se vea el mensaje de ayuda del programa.
+  
+  <img src="img/options.png" width="640" align="center">  
 
 
 ### Contribuciones adicionales y/o comentarios acerca de la práctica
 
+
+ ### THIS IS PRETTY MUCH ALL YOU SI VOLS FICAR 4 COSES D'OPTIMITZACIÓ O EL QUE TU VULGUIS
+ 
 - Indique a continuación si ha realizado algún tipo de aportación suplementaria (algoritmos de detección o 
   parámetros alternativos, etc.).
 
 - Si lo desea, puede realizar también algún comentario acerca de la realización de la práctica que
   considere de interés de cara a su evaluación.
+  
 
 
 ### Antes de entregar la práctica
