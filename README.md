@@ -137,9 +137,11 @@ Ejercicios
   automática conseguida para el fichero grabado al efecto. 
 
   En esta gráfica usamos un frame time de 10 ms 
+  
   <img src="img/lab1.png" width="640" align="center">
   
   En esta gráfica usamos un frame time de 50 ms 
+  
   <img src="img/lab2.png" width="640" align="center">
 
 
@@ -161,7 +163,7 @@ Ejercicios
 
   <img src="img/percentage.png" width="640" align="center">
   
-  Con mejoras y ajustes hemos conseguido estos porcentajes respectivamente hasta obtener un 94.871%
+  Con mejoras y ajustes hemos conseguido estos porcentajes respectivamente hasta obtener la mejor tasa de un 94.871%
   
   <img src="img/936.png" width="640" align="center">
 
