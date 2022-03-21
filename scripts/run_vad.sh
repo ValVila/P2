@@ -1,16 +1,18 @@
 #!/bin/bash
-if [ $# -ne 1 ]; then
-    echo "usage: $0 alpha1"
+if [ $# -ne 3 ]; then
+    echo "usage: $0 missing parameters"
     exit -1 
 fi 
 alpha1=$1
+alpha2=$2
+frame_time=$3
 # Be sure that this file has execution permissions:
 # Use the nautilus explorer or chmod +x run_vad.sh
 
 # Write here the name and path of your program and database
 DIR_P2=$HOME/PAV/P2
 DB=$DIR_P2/db.v4
-CMD="$DIR_P2/bin/vad --alpha1=$alpha1"
+CMD="$DIR_P2/bin/vad --alpha1=$alpha1 --alpha2=$alpha2 --frame_time=$frame_time"
 
 for filewav in $DB/*/*wav; do
 #    echo

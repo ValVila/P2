@@ -4,7 +4,7 @@
 
 #include "vad.h"
 #include "pav_analysis.h"
-const float FRAME_TIME = 50.0F; /* in ms. */
+//const float FRAME_TIME = 50.0F; /* in ms. */
 
 /* 
  * As the output state is only ST_VOICE, ST_SILENCE, or ST_UNDEF,
@@ -53,12 +53,13 @@ Features compute_features(const float *x, int N) {
  * TODO: Init the values of vad_data  
  */
 
-VAD_DATA * vad_open(float rate, float alpha1) {
+VAD_DATA * vad_open(float rate, float alpha1, float alpha2, float frame_time) {
   VAD_DATA *vad_data = malloc(sizeof(VAD_DATA));
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
-  vad_data->frame_length = rate * FRAME_TIME * 1e-3;
+  vad_data->frame_length = rate * frame_time * 1e-3;
   vad_data->alpha1 = alpha1;
+  vad_data->alpha1 = alpha2;
   return vad_data;
 }
 
@@ -94,8 +95,7 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
 
   Features f = compute_features(x, vad_data->frame_length);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
-  vad_data->alpha2 = 6.5;
-  switch (vad_data->state) {
+  switch (vad_data->state) { 
   case ST_INIT: 
     vad_data->state = ST_SILENCE;
     vad_data->p1 = f.p + vad_data->alpha1; 

@@ -17,6 +17,8 @@ typedef struct {
     int version;
     /* options with arguments */
     char *alpha1;
+    char *alpha2;
+    char *frame_time;
     char *input_wav;
     char *output_vad;
     char *output_wav;
@@ -37,7 +39,9 @@ const char help_message[] =
 "   -i FILE, --input-wav=FILE   WAVE file for voice activity detection\n"
 "   -o FILE, --output-vad=FILE  Label file with the result of VAD\n"
 "   -w FILE, --output-wav=FILE  WAVE file with silences cleared\n"
-"   -1 FLOAT, --alpha1=FLOAT    Increment per determinar el llindar de decisió [default: 10]\n"
+"   -1 FLOAT, --alpha1=FLOAT    Increment per determinar el primer llindar de decisió [default: 10]\n"
+"   -2 FLOAT, --alpha2=FLOAT    Increment per determinar el segon llindar de decisió \n"
+"   -f FLOAT, --frame_time=FLOAT frame time\n"
 "   -v, --verbose  Show debug information\n"
 "   -h, --help     Show this screen\n"
 "   --version      Show the version of the project\n"
@@ -275,6 +279,12 @@ int elems_to_args(Elements *elements, DocoptArgs *args, bool help,
         } else if (!strcmp(option->olong, "--alpha1")) {
             if (option->argument)
                 args->alpha1 = option->argument;
+        } else if (!strcmp(option->olong, "--alpha2")) {
+            if (option->argument)
+                args->alpha2 = option->argument;
+        } else if (!strcmp(option->olong, "--frame_time")) {
+            if (option->argument)
+                args->frame_time = option->argument;
         } else if (!strcmp(option->olong, "--input-wav")) {
             if (option->argument)
                 args->input_wav = option->argument;
@@ -304,7 +314,7 @@ int elems_to_args(Elements *elements, DocoptArgs *args, bool help,
 
 DocoptArgs docopt(int argc, char *argv[], bool help, const char *version) {
     DocoptArgs args = {
-        0, 0, 0, (char*) "10", NULL, NULL, NULL,
+        0, 0, 0, (char*) "10", NULL, NULL, NULL, NULL, NULL,
         usage_pattern, help_message
     };
     Tokens ts;
@@ -317,11 +327,13 @@ DocoptArgs docopt(int argc, char *argv[], bool help, const char *version) {
         {"-v", "--verbose", 0, 0, NULL},
         {NULL, "--version", 0, 0, NULL},
         {"-1", "--alpha1", 1, 0, NULL},
+        {"-2", "--alpha2", 1, 0, NULL},
+        {"-f", "--frame_time", 1, 0, NULL},
         {"-i", "--input-wav", 1, 0, NULL},
         {"-o", "--output-vad", 1, 0, NULL},
         {"-w", "--output-wav", 1, 0, NULL}
     };
-    Elements elements = {0, 0, 7, commands, arguments, options};
+    Elements elements = {0, 0, 9, commands, arguments, options};
 
     ts = tokens_new(argc, argv);
     if (parse_args(&ts, &elements))
