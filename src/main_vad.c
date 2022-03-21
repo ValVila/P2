@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
   VAD_DATA *vad_data;
   VAD_STATE state, last_state, prev_state;
 
-  float alpha1, alpha2, frame_time;
+  float alpha1, alpha2, frame_time, min_time;
   float *buffer, *buffer_zeros;
   int frame_size;         /* in samples */
   float frame_duration;   /* in seconds */
@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
   alpha1 = atof(args.alpha1);
   alpha2 = atof(args.alpha2);
   frame_time = atof(args.frame_time);
+  min_time = atof(args.min_time);
 
   if (input_wav == 0 || output_vad == 0) {
     fprintf(stderr, "%s\n", args.usage_pattern);
@@ -93,7 +94,7 @@ int main(int argc, char *argv[]) {
     /* As it is, it prints UNDEF segments but is should be merge to the proper value */
     if (state != last_state) {
       if (t != last_t){
-        if(last_state==ST_UNDEF&& ((last_t* frame_duration)-(t_ref* frame_duration))>0.19){
+        if(last_state==ST_UNDEF&& ((last_t* frame_duration)-(t_ref* frame_duration))>min_time){
           if(state==ST_VOICE && prev_state==ST_SILENCE){
             fprintf(vadfile, "%.5f\t%.5f\t%s\n", t_ref* frame_duration, last_t* frame_duration, state2str(prev_state));
             t_ref=last_t;

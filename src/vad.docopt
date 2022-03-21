@@ -12,6 +12,7 @@ Options:
    -1 FLOAT, --alpha1=FLOAT    Increment per determinar el primer llindar de decisió [default: 10]
    -2 FLOAT, --alpha2=FLOAT    Increment per determinar el segon llindar de decisió 
    -f FLOAT, --frame_time=FLOAT frame time
+   -m FLOAT, --min_time=FLOAT  min_time
    -v, --verbose  Show debug information
    -h, --help     Show this screen
    --version      Show the version of the project
