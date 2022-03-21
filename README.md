@@ -180,6 +180,8 @@ Ejercicios
   la que se vea con claridad la señal antes y después de la cancelación (puede que `wavesurfer` no sea la
   mejor opción para esto, ya que no es capaz de visualizar varias señales al mismo tiempo).
   
+  Debajo la señal antes y arriba la señal después de la cancelación
+  
   <img src="img/silence.PNG" width="640" align="center">  
   
   Para ver que correctamente se ha desarollado el algoritmo de cancelaión de los segmentos de silencio miramos el plot de potencia y vemos que en efecto los segmentos
